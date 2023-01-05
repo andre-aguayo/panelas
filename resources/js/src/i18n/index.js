@@ -4,7 +4,7 @@ const i18n = createI18n({
   locale: 'br',
   messages: {
     br: {
-      AppTitle: 'Sail',
+      AppTitle: 'Panelas',
       home: {
         title: 'Lista de empresas',
         table: {
