@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\App;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,16 +16,18 @@ use App\Http\Controllers\CompanyController;
 |
 */
 
+Route::post('/login', [LoginController::class, 'login']);
+
+Route::middleware(['auth.admin', 'auth:sanctum'])
+    ->prefix('admin')
+    ->name('admin')
+    ->group(function () {
+
+        Route::get('isconnected', function () {
+            return response()->json(['success' => true, 'isconnected' => true]);
+        });
+    });
+
 Route::post('/send-mail', [CompanyController::class, 'sendMail']);
 
 Route::get('/home', [CompanyController::class, 'index']);
-
-Route::get('/companies', [CompanyController::class, 'index']);
-
-Route::post('/company/create', [CompanyController::class, 'store']);
-
-Route::get('/UF', [CompanyController::class, 'listUf']);
-
-Route::get('/cities', [CompanyController::class, 'listCities']);
-
-Route::get('/state-cities', [CompanyController::class, 'listStateCities']);
