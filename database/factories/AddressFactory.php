@@ -3,11 +3,12 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
-class CompanyFactory extends Factory
+class AddressFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -16,13 +17,15 @@ class CompanyFactory extends Factory
      */
     public function definition()
     {
+        $creditCardType = fake()->creditCardType();
+
         return [
-            'name' => fake()->company(),
-            'email' => fake()->unique()->safeEmail(),
-            'phone' => fake()->phoneNumber(),
-            'description' => fake()->text(255),
+            'UF' => fake()->stateAbbr,
             'city' => fake()->city,
-            'UF' => fake()->stateAbbr
+            'district' => fake()->text(255),
+            'street' => fake()->streetName(),
+            'number' => fake()->streetAddress(),
+            'reference' => fake()->text(20),
         ];
     }
 

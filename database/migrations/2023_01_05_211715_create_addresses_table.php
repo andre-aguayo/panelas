@@ -16,8 +16,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('addresses', function (Blueprint $table) {
-            $table->uuid('uuid')->default(DB::raw('(UUID())'))->primary();
-            $table->foreignUuid('user_uuid')->references('uuid')->on('users');
+            $table->uuid('id')->default(DB::raw('(UUID())'))->primary();
+            $table->foreignUuid('user_id')->references('id')->on('users');
             $table->enum('UF', array_column(UFEnum::cases(), 'value'));
             $table->string('city')->nullable(false);
             $table->string('district')->nullable(false);
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('reference')->nullable(false);
             $table->timestamps();
 
-            $table->index(['uuid', 'user_uuid', 'city', 'UF']);
+            $table->index(['id', 'user_id', 'city', 'UF']);
         });
     }
 
@@ -38,7 +38,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('addresses', function (Blueprint $table) {
-            $table->dropForeign(['user_uuid']);
+            $table->dropForeign(['user_id']);
         });
         Schema::dropIfExists('addresses');
     }
