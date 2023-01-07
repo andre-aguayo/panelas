@@ -2,13 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Address extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasUuids;
+
+    /**
+     * To use Uuid in primery key
+     */
+    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +28,7 @@ class Address extends Model
         'district',
         'street',
         'number',
-        'reference'
+        'reference',
     ];
 
     /**
@@ -33,7 +39,7 @@ class Address extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'deleted_at' => 'datetime'
+        'deleted_at' => 'datetime',
     ];
 
     /**

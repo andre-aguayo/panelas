@@ -2,13 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CreditCard extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasUuids;
+
+    /**
+     * To use Uuid in primery key
+     */
+    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +25,7 @@ class CreditCard extends Model
         'user_uuid',
         'cardholder_name',
         'number',
-        'expiration_dateF'
+        'expiration_date',
     ];
 
     /**
@@ -30,7 +36,7 @@ class CreditCard extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'deleted_at' => 'datetime'
+        'deleted_at' => 'datetime',
     ];
 
     /**
