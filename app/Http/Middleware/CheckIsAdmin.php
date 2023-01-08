@@ -24,7 +24,7 @@ class CheckIsAdmin
             return $next($request);
         } else {
             return  throw ValidationException::withMessages([
-                'Authentication' => __('auth.unautorizated')
+                'Authentication' => __('auth.unauthorized')
             ]);
         }
     }
