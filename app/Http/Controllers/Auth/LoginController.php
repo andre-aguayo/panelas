@@ -15,10 +15,10 @@ class LoginController extends Controller
         $user = User::where('email', $request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'email' => [__('auth.failed')],
+                'Authentication' => __('auth.failed')
             ]);
         }
 
-        return ['success' => true, 'data' => ['Authentication' => $user->createToken('Api_KEY')->plainTextToken]];
+        return ['Authentication' => $user->createToken('Api_KEY')->plainTextToken];
     }
 }

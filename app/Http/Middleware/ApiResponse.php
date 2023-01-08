@@ -17,10 +17,29 @@ class ApiResponse
     public function handle(Request $request, Closure $next)
     {
         $response = $next($request);
+        $response->header('Content-Type', 'application/json');
 
-        if (in_array($response->status(), [200, 201, 400, 404, 401, 422])) {
-            $response->header('Content-Type', 'application/json');
+        if (in_array($response->status(), [200, 201])) {
+            $response->setContent(
+                json_encode(
+                    [
+                        'success' => true,
+                        'data' => json_decode($response->content())
+                    ]
+                )
+            );
         }
+        if (in_array($response->status(), [400, 401, 404, 422])) {
+            $response->setContent(
+                json_encode(
+                    [
+                        'success' => false,
+                        'error' => json_decode($response->content())->errors
+                    ]
+                )
+            );
+        }
+
         return $response;
     }
 }

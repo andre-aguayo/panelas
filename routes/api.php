@@ -22,16 +22,16 @@ Route::post('isconnected', function () {
 
 Route::post('login', [LoginController::class, 'login'])->middleware('api.response');
 
-Route::middleware(['api.response', 'auth.admin', 'auth:sanctum'])->prefix('admin')->name('admin')
+Route::middleware(['auth.admin', 'auth:sanctum', 'api.response'])->prefix('admin')->name('admin')
     ->group(function () {
         Route::get('isconnected', function () {
-            return response()->json(['success' => true, 'isconnected' => true]);
+            return response(['isconnected' => true]);
         });
     });
 
 Route::middleware(['api.response', 'auth:sanctum'])->prefix('user')->name('admin')->group(function () {
     Route::get('isconnected', function () {
-        return response()->json(['success' => true, 'isconnectes' => true]);
+        return response(['isconnectes' => true]);
     });
 });
 
