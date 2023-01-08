@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,17 +16,24 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::post('/login', [LoginController::class, 'login']);
+Route::post('isconnected', function () {
+    return response()->json(['success' => true, 'isconnectes' => true]);
+});
 
-Route::middleware(['auth.admin', 'auth:sanctum'])
-    ->prefix('admin')
-    ->name('admin')
+Route::post('login', [LoginController::class, 'login'])->middleware('api.response');
+
+Route::middleware(['api.response', 'auth.admin', 'auth:sanctum'])->prefix('admin')->name('admin')
     ->group(function () {
-
         Route::get('isconnected', function () {
             return response()->json(['success' => true, 'isconnected' => true]);
         });
     });
+
+Route::middleware(['api.response', 'auth:sanctum'])->prefix('user')->name('admin')->group(function () {
+    Route::get('isconnected', function () {
+        return response()->json(['success' => true, 'isconnectes' => true]);
+    });
+});
 
 Route::post('/send-mail', [CompanyController::class, 'sendMail']);
 
