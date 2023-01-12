@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -14,22 +14,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('credit_cards', function (Blueprint $table) {
+        Schema::create('product_informations', function (Blueprint $table) {
             $table->uuid('id')->default(DB::raw('(UUID())'))->primary();
-            $table->foreignUuid('user_id')
+            $table->foreignUuid('product_id')
                 ->references('id')
-                ->on('users')
+                ->on('products')
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('cardholder_name')->nullable(false);
-            $table->string('card_type')->nullable(false);
-            $table->string('number')->nullable(false);
-            $table->string('expiration_date')->nullable(false);
+            $table->string('name')
+                ->comment('is the name of the description, example: product brand');
+            $table->string('description')
+                ->comment('is the description of the product, example: brand name');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['id', 'user_id']);
+            $table->index(['id', 'name', 'description']);
         });
     }
 
@@ -40,9 +40,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('credit_cards', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
+        Schema::table('product_informations', function (Blueprint $table) {
+            $table->dropForeign(['product_id']);
         });
-        Schema::dropIfExists('credit_cards');
+
+        Schema::dropIfExists('product_informations');
     }
 };

@@ -20,12 +20,15 @@ Route::post('isconnected', function () {
     return response()->json(['success' => true, 'isconnectes' => true]);
 });
 
-Route::post('login', [LoginController::class, 'login'])->middleware('api.response');
+Route::post('login', [LoginController::class, 'login'])
+    ->middleware('api.response');
 
 /**
  * Routes for admin access
  */
-Route::middleware(['auth.admin', 'auth:sanctum', 'api.response'])->prefix('admin')->name('admin')
+Route::middleware(['auth.admin', 'auth:sanctum', 'api.response'])
+    ->prefix('admin')
+    ->name('admin')
     ->group(function () {
         Route::get('isconnected', function () {
             return response(['isconnected' => true]);
@@ -35,11 +38,15 @@ Route::middleware(['auth.admin', 'auth:sanctum', 'api.response'])->prefix('admin
 /**
  * Routes for user access
  */
-Route::middleware(['api.response', 'auth:sanctum'])->prefix('user')->name('admin')->group(function () {
-    Route::get('isconnected', function () {
-        return response(['isconnectes' => true]);
+Route::middleware(['api.response', 'auth:sanctum'])
+    ->prefix('user')
+    ->name('admin')
+    ->group(function () {
+
+        Route::get('isconnected', function () {
+            return response(['isconnectes' => true]);
+        });
     });
-});
 
 Route::post('/send-mail', [CompanyController::class, 'sendMail']);
 

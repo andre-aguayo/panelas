@@ -2,34 +2,35 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
     /**
      * Run the migrations.
+     * Marcas e descriçoes do produto ficarao em more products description
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('credit_cards', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->uuid('id')->default(DB::raw('(UUID())'))->primary();
-            $table->foreignUuid('user_id')
+            $table->foreignUuid('product_category_id')
                 ->references('id')
-                ->on('users')
+                ->on('product_categories')
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('cardholder_name')->nullable(false);
-            $table->string('card_type')->nullable(false);
-            $table->string('number')->nullable(false);
-            $table->string('expiration_date')->nullable(false);
+            $table->string('name');
+            $table->string('image');
+            $table->integer('value');
+            $table->integer('cost');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['id', 'user_id']);
+            $table->index(['id', 'product_category_id', 'name', 'value', 'cost']);
         });
     }
 
@@ -39,10 +40,11 @@ return new class extends Migration
      * @return void
      */
     public function down()
-    {
-        Schema::table('credit_cards', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
+    {       
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropForeign(['product_category_id']);
         });
-        Schema::dropIfExists('credit_cards');
+
+        Schema::dropIfExists('products');
     }
 };

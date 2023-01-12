@@ -17,7 +17,12 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->uuid('id')->default(DB::raw('(UUID())'))->primary();
-            $table->foreignUuid('user_id')->references('id')->on('users');
+            $table->foreignUuid('user_id')
+                ->references('id')
+                ->on('users')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->enum('UF', array_column(UFEnum::cases(), 'value'));
             $table->string('city')->nullable(false);
             $table->string('district')->nullable(false);
