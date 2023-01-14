@@ -2,9 +2,19 @@
 
 namespace App\Providers;
 
-use App\Services\CompanyService;
-use App\Services\CompanyServiceInterface;
 use Illuminate\Support\ServiceProvider;
+use App\Services\AddressService;
+use App\Services\Interfaces\AddreressServiceInterface;
+use App\Services\ProductCategoryService;
+use App\Services\Interfaces\ProductCategoryServiceInterface;
+use App\Services\ProductService;
+use App\Services\Interfaces\ProductServiceInterface;
+use App\Services\ProductStockService;
+use App\Services\Interfaces\ProductStockServiceInterface;
+use App\Services\User\CreditCardService;
+use App\Services\User\Interfaces\CreditCardServiceInterface;
+use App\Services\User\Interfaces\UserServiceInterface;
+use App\Services\User\UserService;
 
 class BindInterfacesServiceProvider extends ServiceProvider
 {
@@ -25,6 +35,11 @@ class BindInterfacesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->bind(CompanyServiceInterface::class, CompanyService::class);
+        $this->app->bind(AddreressServiceInterface::class, AddressService::class);
+        $this->app->bind(ProductCategoryServiceInterface::class, ProductCategoryService::class);
+        $this->app->bind(ProductServiceInterface::class, ProductService::class);
+        $this->app->bind(ProductStockServiceInterface::class, ProductStockService::class);
+        $this->app->bind(CreditCardServiceInterface::class, CreditCardService::class);
+        $this->app->bind(UserServiceInterface::class, UserService::class);
     }
 }

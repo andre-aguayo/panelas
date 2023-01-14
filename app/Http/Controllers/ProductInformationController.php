@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MoreProductDescriptionsForSearch;
+use App\Models\ProductInformation;
 use Illuminate\Http\Request;
 
-class MoreProductDescriptionsForSearchController extends Controller
+class ProductInformationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class MoreProductDescriptionsForSearchController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\MoreProductDescriptionsForSearch  $moreProductDescriptionsForSearch
+     * @param  \App\Models\ProductInformation  $moreProductDescriptionsForSearch
      * @return \Illuminate\Http\Response
      */
-    public function show(MoreProductDescriptionsForSearch $moreProductDescriptionsForSearch)
+    public function show(ProductInformation $moreProductDescriptionsForSearch)
     {
         //
     }
@@ -52,10 +52,10 @@ class MoreProductDescriptionsForSearchController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\MoreProductDescriptionsForSearch  $moreProductDescriptionsForSearch
+     * @param  \App\Models\ProductInformation  $moreProductDescriptionsForSearch
      * @return \Illuminate\Http\Response
      */
-    public function edit(MoreProductDescriptionsForSearch $moreProductDescriptionsForSearch)
+    public function edit(ProductInformation $moreProductDescriptionsForSearch)
     {
         //
     }
@@ -64,10 +64,10 @@ class MoreProductDescriptionsForSearchController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\MoreProductDescriptionsForSearch  $moreProductDescriptionsForSearch
+     * @param  \App\Models\ProductInformation  $moreProductDescriptionsForSearch
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MoreProductDescriptionsForSearch $moreProductDescriptionsForSearch)
+    public function update(Request $request, ProductInformation $moreProductDescriptionsForSearch)
     {
         //
     }
@@ -75,10 +75,10 @@ class MoreProductDescriptionsForSearchController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\MoreProductDescriptionsForSearch  $moreProductDescriptionsForSearch
+     * @param  \App\Models\ProductInformation  $moreProductDescriptionsForSearch
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MoreProductDescriptionsForSearch $moreProductDescriptionsForSearch)
+    public function destroy(ProductInformation $moreProductDescriptionsForSearch)
     {
         //
     }

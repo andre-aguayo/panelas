@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Auth\LoginController;
 
@@ -47,7 +46,3 @@ Route::middleware(['api.response', 'auth:sanctum'])
             return response(['isconnectes' => true]);
         });
     });
-
-Route::post('/send-mail', [CompanyController::class, 'sendMail']);
-
-Route::get('/home', [CompanyController::class, 'index']);
