@@ -34,7 +34,17 @@ class ApiResponse
                 json_encode(
                     [
                         'success' => false,
-                        'error' => json_decode($response->content())->errors
+                        'error' => json_decode($response->content())->errors,
+                    ]
+                )
+            );
+        }
+        if ($response->status() == 500) {
+            $response->setContent(
+                json_encode(
+                    [
+                        'success' => false,
+                        'error' => $response->exception->getMessage(),
                     ]
                 )
             );

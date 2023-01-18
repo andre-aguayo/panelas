@@ -2,29 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductCategoryCreateRequest;
+use App\Http\Requests\ProductCategoryUpdateRequest;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use App\Services\Product\Interfaces\ProductCategoryServiceInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 class ProductCategoryController extends Controller
 {
+
+    public function __construct(private ProductCategoryServiceInterface $productCategoryService)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): Collection
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->productCategoryService->list();
     }
 
     /**
@@ -33,9 +32,9 @@ class ProductCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductCategoryCreateRequest $productCategoryCreateRequest)
     {
-        //
+        return $this->productCategoryService->store($productCategoryCreateRequest);
     }
 
     /**
@@ -44,20 +43,9 @@ class ProductCategoryController extends Controller
      * @param  \App\Models\ProductCategory  $productCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(ProductCategory $productCategory)
+    public function show(Request $productCategory)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ProductCategory  $productCategory
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ProductCategory $productCategory)
-    {
-        //
+        return $this->productCategoryService->show($productCategory->id);
     }
 
     /**
@@ -67,9 +55,9 @@ class ProductCategoryController extends Controller
      * @param  \App\Models\ProductCategory  $productCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductCategory $productCategory)
+    public function update(ProductCategoryUpdateRequest $productCategoryUpdateRequest)
     {
-        //
+        return $this->productCategoryService->update($productCategoryUpdateRequest);
     }
 
     /**
@@ -78,8 +66,8 @@ class ProductCategoryController extends Controller
      * @param  \App\Models\ProductCategory  $productCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductCategory $productCategory)
+    public function destroy(Request $request)
     {
-        //
+        return $this->productCategoryService->destroy($request->id);
     }
 }

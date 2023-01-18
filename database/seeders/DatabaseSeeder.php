@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
 
         // Create a common user
         User::create([
-            'name' => 'user',
+            'name' => 'iurru',
             'email' => 'user@iurru.com',
             'password' =>  Hash::make('user'),
             'as_admin' => 0,

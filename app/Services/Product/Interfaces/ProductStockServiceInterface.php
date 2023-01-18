@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Interfaces;
+namespace App\Services\Product\Interfaces;
 
 interface ProductStockServiceInterface
 {

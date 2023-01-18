@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +18,12 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
-Route::post('isconnected', function () {
+Route::middleware(['api.response'])->get('isconnected', function () {
     return response()->json(['success' => true, 'isconnectes' => true]);
 });
 
 Route::post('login', [LoginController::class, 'login'])
-    ->middleware('api.response');
+    ->middleware('api.response')->name('api.login');
 
 /**
  * Routes for admin access
@@ -32,12 +35,32 @@ Route::middleware(['auth.admin', 'auth:sanctum', 'api.response'])
         Route::get('isconnected', function () {
             return response(['isconnected' => true]);
         });
+
+        /**
+         * Product Categories routes
+         */
+        Route::prefix('product-category')->group(function () {
+            Route::post('store', [ProductCategoryController::class, 'store'])->name('productCategory.store');
+            Route::put('update', [ProductCategoryController::class, 'update'])->name('productCategory.update');
+            Route::delete('delete', [ProductCategoryController::class, 'delete'])->name('productCategory.delete');
+        });
+
+        /**
+         * Product routes
+         */
+        Route::prefix('product')->group(function () {
+            Route::get('index', [ProductController::class, 'list'])->name('product.index');
+            Route::get('{id}', [ProductController::class, 'byId'])->name('product.byId');
+            Route::post('store', [ProductController::class, 'store'])->name('product.store');
+            Route::put('update', [ProductController::class, 'update'])->name('product.update');
+            Route::delete('delete', [ProductController::class, 'delete'])->name('product.delete');
+        });
     });
 
 /**
  * Routes for user access
  */
-Route::middleware(['api.response', 'auth:sanctum'])
+Route::middleware(['auth:sanctum', 'api.response'])
     ->prefix('user')
     ->name('admin')
     ->group(function () {
@@ -46,3 +69,19 @@ Route::middleware(['api.response', 'auth:sanctum'])
             return response(['isconnectes' => true]);
         });
     });
+
+/**
+ * Product categories routes without authorization
+ */
+Route::middleware(['api.response'])->prefix('product-category')->group(function () {
+    Route::get('index', [ProductCategoryController::class, 'index'])->name('productCategory.index');
+    Route::get('show/{id}', [ProductCategoryController::class, 'show'])->name('productCategory.show');
+});
+
+/**
+ * Products routes without authorization
+ */
+Route::prefix('product')->group(function () {
+    Route::get('index', [ProductController::class, 'list'])->name('product.index');
+    Route::get('show/{id}', [ProductController::class, 'show'])->name('product.show');
+});
