@@ -41,9 +41,9 @@ class ProductCategoryService implements ProductCategoryServiceInterface
         return $productCategory->save();
     }
 
-    public function destroy(Request $productCategory): bool
+    public function destroy(string $productCategoryId): bool
     {
-        $productCategory = $this->show($productCategory->id);
+        $productCategory = $this->show($productCategoryId);
 
         return $productCategory->delete();
     }

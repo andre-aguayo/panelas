@@ -44,5 +44,5 @@ interface ProductCategoryServiceInterface
      * @param ProductCategory $productCategory
      * @return bool updated?
      */
-    public function destroy(Request $productCategory): bool;
+    public function destroy(string $productCategoryId): bool;
 }

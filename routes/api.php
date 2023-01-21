@@ -42,7 +42,7 @@ Route::middleware(['auth.admin', 'auth:sanctum', 'api.response'])
         Route::prefix('product-category')->group(function () {
             Route::post('store', [ProductCategoryController::class, 'store'])->name('productCategory.store');
             Route::put('update', [ProductCategoryController::class, 'update'])->name('productCategory.update');
-            Route::delete('delete', [ProductCategoryController::class, 'delete'])->name('productCategory.delete');
+            Route::delete('destroy', [ProductCategoryController::class, 'destroy'])->name('productCategory.destroy');
         });
 
         /**
@@ -53,7 +53,7 @@ Route::middleware(['auth.admin', 'auth:sanctum', 'api.response'])
             Route::get('{id}', [ProductController::class, 'byId'])->name('product.byId');
             Route::post('store', [ProductController::class, 'store'])->name('product.store');
             Route::put('update', [ProductController::class, 'update'])->name('product.update');
-            Route::delete('delete', [ProductController::class, 'delete'])->name('product.delete');
+            Route::delete('destroy', [ProductController::class, 'destroy'])->name('product.destroy');
         });
     });
 
@@ -81,7 +81,8 @@ Route::middleware(['api.response'])->prefix('product-category')->group(function 
 /**
  * Products routes without authorization
  */
-Route::prefix('product')->group(function () {
-    Route::get('index', [ProductController::class, 'list'])->name('product.index');
+Route::middleware(['api.response'])->prefix('product')->group(function () {
+    Route::get('index', [ProductController::class, 'index'])->name('product.index');
     Route::get('show/{id}', [ProductController::class, 'show'])->name('product.show');
+    Route::get('profucts-of-category/{id}', [ProductController::class, 'profuctsOfCategory'])->name('product.profuctsOfCategory');
 });
