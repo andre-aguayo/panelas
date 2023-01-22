@@ -9,6 +9,10 @@
                     "bodyLineLength": 72
                 },
                 "conditions": []
+            },
+            {
+                "action": "./vendor/bin/sail artisan test",
+                "options": {}
             }
         ]
     },
