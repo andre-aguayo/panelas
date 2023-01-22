@@ -2,12 +2,10 @@
 
 namespace App\Services\Product;
 
-use App\Models\Product;
 use Exception;
+use App\Models\Product;
 use App\Models\ProductInformation;
-use Illuminate\Support\Facades\DB;
 use App\Services\Product\Interfaces\ProductInformationServiceInterface;
-use FFI;
 
 class ProductInformationService implements ProductInformationServiceInterface
 {

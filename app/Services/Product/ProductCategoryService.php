@@ -3,7 +3,6 @@
 namespace App\Services\Product;
 
 use Exception;
-use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 use Illuminate\Database\Eloquent\Collection;
 use App\Http\Requests\ProductCategoryCreateRequest;
@@ -27,7 +26,7 @@ class ProductCategoryService implements ProductCategoryServiceInterface
         $productCategory = ProductCategory::where(['id' => $id])->first();
 
         if (!$productCategory)
-            throw new Exception(__('requestErrors.productCategory.notFound'));
+            throw new Exception(__('requestErrors.productCategory.notFound'), 404);
 
         return $productCategory;
     }

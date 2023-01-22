@@ -48,8 +48,6 @@ Route::middleware(['auth.admin', 'auth:sanctum', 'api.response'])
          * Product routes
          */
         Route::prefix('product')->group(function () {
-            Route::get('index', [ProductController::class, 'list'])->name('product.index');
-            Route::get('{id}', [ProductController::class, 'show'])->name('product.show');
             Route::post('store', [ProductController::class, 'store'])->name('product.store');
             Route::put('update', [ProductController::class, 'update'])->name('product.update');
             Route::delete('destroy', [ProductController::class, 'destroy'])->name('product.destroy');

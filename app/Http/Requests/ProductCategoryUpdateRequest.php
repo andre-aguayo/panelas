@@ -28,14 +28,4 @@ class ProductCategoryUpdateRequest extends FormRequest
             'name' => 'required|string'
         ];
     }
-
-    public function messages()
-    {
-        return [
-            'id.required' => __(),
-            'id.uuid' => __(),
-            'name.required' => __(),
-            'name.string' => __(),
-        ];
-    }
 }

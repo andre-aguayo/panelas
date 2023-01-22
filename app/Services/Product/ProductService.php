@@ -31,7 +31,8 @@ class ProductService implements ProductServiceInterface
                 'image',
                 'value'
             ]
-        )->with('productInformations')->get();
+        )->with('productInformations', 'stock')
+            ->get();
     }
 
     public function profuctsOfCategory(string $productCategoryId): Collection
@@ -44,8 +45,7 @@ class ProductService implements ProductServiceInterface
                 'image',
                 'value'
             ]
-        )
-            ->with('productInformations')
+        )->with('productInformations', 'stock')
             ->where(['product_category_id' => $productCategoryId])
             ->get();
     }
@@ -60,13 +60,12 @@ class ProductService implements ProductServiceInterface
                 'image',
                 'value',
             ]
-        )
-            ->where(['id' => $id])
+        )->where(['id' => $id])
             ->with('productInformations', 'stock')
             ->first();
 
         if (!$product)
-            throw new Exception(__('requestErrors.product.notFound'));
+            throw new Exception(__('requestErrors.product.notFound'), 404);
 
         return $product;
     }
@@ -137,7 +136,6 @@ class ProductService implements ProductServiceInterface
 
     public function destroy(string $productId): bool
     {
-        $product = Product::where(['id' => $productId])->first();
-        return $product->delete();
+        return ($this->show($productId))->delete();
     }
 }
