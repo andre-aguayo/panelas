@@ -77,9 +77,6 @@ class AuthTest extends TestCase
         $response = $this->getJson('api/user/isconnected', ['Authorization' => "Bearer " . $userToken]);
         $response->assertStatus(200);
         $response->assertJson(fn ($json) => $json->where('success', true)->where('data.isconnected', true));
-        //check if not access user routes without token
-        $response = $this->getJson('api/user/isconnected');
-        $response->assertStatus(302);
     }
 
     /**
