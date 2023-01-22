@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use Exception;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, SoftDeletes;
 
     /**
      * To use Uuid in primery key
@@ -44,13 +47,29 @@ class Product extends Model
         return $this->belongsTo(category::class);
     }
 
-    public function moreInformations()
+    public function productInformations()
     {
         return $this->hasMany(ProductInformation::class);
     }
 
-    public function stok()
+    public function stock()
     {
         return $this->hasOne(ProductStock::class);
+    }
+
+    public function delete()
+    {
+        DB::beginTransaction();
+
+        try {
+            $this->productInformations()->delete();
+            $this->stock()->delete();
+
+            $delete = parent::delete();
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
+        return $delete;
     }
 }

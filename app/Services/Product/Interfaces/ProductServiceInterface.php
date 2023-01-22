@@ -11,44 +11,48 @@ use Illuminate\Http\Request;
 interface ProductServiceInterface
 {
     /**
-     * @return Collection of all services
+     * @return Collection of all Product with ProductInformation
      */
     public function list(): Collection;
 
     /**
      * @param string $productCategoryId
-     * @return Collection of products category
+     * @return Collection of products by product_category_id
      */
     public function profuctsOfCategory(string $productCategoryId): Collection;
-
-    /**
-     * @param ProcuctCategoryCreateRequest $productCategoryCreateRequest
-     * @return ProductCategory
-     */
-    public function store(ProductCreateRequest $productCategoryCreateRequest): Product;
 
     /**
      * @throws Exception if it doesn't exist
      * 
      * @param string $id product category
-     * @return ProductCategory
+     * @return Product with ProductInformation and stock
      */
     public function show(string $id): Product;
 
     /**
-     * @throws Exception if it doesn't exist
+     * Store product with informations
      * 
-     * @param ProductCategory $productCategory
-     * @return bool updated?
+     * @throws Exception if it doesn't store
+     * @param ProductCreateRequest $productRequest
+     * @return Product
      */
-    public function update(ProductUpdateRequest $productCategory): bool;
+    public function store(ProductCreateRequest $productRequest): Product;
 
 
     /**
-     * @throws Exception if it doesn't exist
+     * @throws Exception if it doesn't updat or don't exists
      * 
-     * @param ProductCategory $productCategory
-     * @return bool updated?
+     * @param ProductUpdateRequest $productRequest
+     * @return Product
      */
-    public function destroy(Request $productCategory): bool;
+    public function update(ProductUpdateRequest $productRequest): Product;
+
+
+    /**
+     * @throws Exception if it doesn't destroy or don't exists
+     * 
+     * @param string $productId is uuid
+     * @return bool destroyed?
+     */
+    public function destroy(string $productId): bool;
 }

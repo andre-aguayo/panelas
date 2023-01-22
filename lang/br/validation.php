@@ -21,7 +21,7 @@ return [
     'alpha' => 'The :attribute must only contain letters.',
     'alpha_dash' => 'The :attribute must only contain letters, numbers, dashes and underscores.',
     'alpha_num' => 'The :attribute must only contain letters and numbers.',
-    'array' => 'The :attribute must be an array.',
+    'array' => 'O :attribute deve ser um array.',
     'before' => 'The :attribute must be a date before :date.',
     'before_or_equal' => 'The :attribute must be a date before or equal to :date.',
     'between' => [
@@ -170,5 +170,7 @@ return [
     */
 
     'attributes' => [],
+
+    'product_information' => 'As informaçoes do produto nao sao válidas.',
 
 ];

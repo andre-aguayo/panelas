@@ -13,7 +13,7 @@ class ProductUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,17 @@ class ProductUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'product.id' => 'required|uuid',
+            'product.product_category_id' => 'required|uuid',
+            'product.name' => 'required|string',
+            'product.image' => 'required|string',
+            'product.value' => 'required|integer',
+            'product.cost' => 'required|integer',
+            'product_stock' => 'required|integer',
+            'product_informations' => 'array',
+            'product_informations.*.id' => 'uuid',
+            'product_informations.*.name' => 'required|string',
+            'product_informations.*.description' => 'required|string',
         ];
     }
 }

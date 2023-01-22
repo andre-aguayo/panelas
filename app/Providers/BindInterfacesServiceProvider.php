@@ -7,10 +7,12 @@ use App\Services\AddressService;
 use App\Services\Interfaces\AddreressServiceInterface;
 use App\Services\Product\ProductCategoryService;
 use App\Services\Product\Interfaces\ProductCategoryServiceInterface;
+use App\Services\Product\Interfaces\ProductInfotmationServiceInterface;
 use App\Services\Product\ProductService;
 use App\Services\Product\Interfaces\ProductServiceInterface;
 use App\Services\Product\ProductStockService;
 use App\Services\Product\Interfaces\ProductStockServiceInterface;
+use App\Services\Product\ProductInformationService;
 use App\Services\User\CreditCardService;
 use App\Services\User\Interfaces\CreditCardServiceInterface;
 use App\Services\User\Interfaces\UserServiceInterface;
@@ -39,6 +41,7 @@ class BindInterfacesServiceProvider extends ServiceProvider
         $this->app->bind(ProductCategoryServiceInterface::class, ProductCategoryService::class);
         $this->app->bind(ProductServiceInterface::class, ProductService::class);
         $this->app->bind(ProductStockServiceInterface::class, ProductStockService::class);
+        $this->app->bind(ProductInfotmationServiceInterface::class, ProductInformationService::class);
         $this->app->bind(CreditCardServiceInterface::class, CreditCardService::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
     }

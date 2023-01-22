@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductCreateRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Services\Product\Interfaces\ProductServiceInterface;
 
 class ProductController extends Controller
 {
+    public function __construct(private ProductServiceInterface $productService)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,28 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return $this->productService->list();
     }
 
     /**
@@ -44,20 +30,31 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function profuctsOfCategory(Request $request)
     {
-        //
+        return $this->productService->profuctsOfCategory($request->id);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display the specified resource.
      *
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function show(Request $request)
     {
-        //
+        return $this->productService->show($request->id);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(ProductCreateRequest $request)
+    {
+        return $this->productService->store($request);
     }
 
     /**
@@ -67,9 +64,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductUpdateRequest $request)
     {
-        //
+        return $this->productService->update($request);
     }
 
     /**
@@ -78,8 +75,8 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request)
     {
-        //
+        return $this->productService->destroy($request->id);
     }
 }

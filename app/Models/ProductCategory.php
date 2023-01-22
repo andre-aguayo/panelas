@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class ProductCategory extends Model
 {
@@ -39,5 +41,23 @@ class ProductCategory extends Model
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function delete()
+    {
+        DB::beginTransaction();
+
+        try {
+            $this->products()->each(function ($product) {
+                $product->stock()->delete();
+                $product->productInformations()->delete();
+            });
+            $this->products()->delete();
+            $delete = parent::delete();
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
+        return $delete;
     }
 }

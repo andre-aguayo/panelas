@@ -23,14 +23,13 @@ Route::middleware(['api.response'])->get('isconnected', function () {
 });
 
 Route::post('login', [LoginController::class, 'login'])
-    ->middleware('api.response')->name('api.login');
+    ->middleware('api.response')->name('login');
 
 /**
  * Routes for admin access
  */
 Route::middleware(['auth.admin', 'auth:sanctum', 'api.response'])
     ->prefix('admin')
-    ->name('admin')
     ->group(function () {
         Route::get('isconnected', function () {
             return response(['isconnected' => true]);
@@ -50,7 +49,7 @@ Route::middleware(['auth.admin', 'auth:sanctum', 'api.response'])
          */
         Route::prefix('product')->group(function () {
             Route::get('index', [ProductController::class, 'list'])->name('product.index');
-            Route::get('{id}', [ProductController::class, 'byId'])->name('product.byId');
+            Route::get('{id}', [ProductController::class, 'show'])->name('product.show');
             Route::post('store', [ProductController::class, 'store'])->name('product.store');
             Route::put('update', [ProductController::class, 'update'])->name('product.update');
             Route::delete('destroy', [ProductController::class, 'destroy'])->name('product.destroy');
@@ -62,7 +61,6 @@ Route::middleware(['auth.admin', 'auth:sanctum', 'api.response'])
  */
 Route::middleware(['auth:sanctum', 'api.response'])
     ->prefix('user')
-    ->name('admin')
     ->group(function () {
 
         Route::get('isconnected', function () {
