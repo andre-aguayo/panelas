@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Closure;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 
 class CheckIsAdmin
 {
@@ -23,9 +22,13 @@ class CheckIsAdmin
         if ($user && $user instanceof User && $user->as_admin) {
             return $next($request);
         } else {
-            return  throw ValidationException::withMessages([
-                'Authentication' => __('auth.unauthorized')
-            ]);
+            return response()->json(
+                [
+                    'success' => false,
+                    'error' =>  __('auth.unauthorized')
+                ],
+                401
+            );
         }
     }
 }

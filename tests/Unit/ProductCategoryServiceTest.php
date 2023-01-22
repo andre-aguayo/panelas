@@ -2,16 +2,16 @@
 
 namespace Tests\Unit;
 
-use App\Models\ProductCategory;
+use Exception;
 use Tests\TestCase;
+use App\Models\Product;
+use App\Models\ProductStock;
+use App\Models\ProductCategory;
+use App\Models\ProductInformation;
+use App\Services\Product\ProductCategoryService;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Http\Requests\ProductCategoryCreateRequest;
 use App\Http\Requests\ProductCategoryUpdateRequest;
-use App\Models\Product;
-use App\Models\ProductInformation;
-use App\Models\ProductStock;
-use App\Services\Product\ProductCategoryService;
-use Exception;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProductCategoryServiceTest extends TestCase
 {

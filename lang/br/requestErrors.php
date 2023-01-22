@@ -2,13 +2,13 @@
 
 return [
     'email' => [
-        'required' => 'o email é obrigatorio.',
+        'required' => 'O email é obrigatorio.',
         'email' => 'Formato de email é inválido.'
     ],
     'password' =>
     [
         'required' => 'A senha é obrigatoria.',
-        'min' => 'a senha deve conter ao menos 5 caracteres.'
+        'min' => 'A senha deve conter ao menos 5 caracteres.'
     ],
     'productCategory' => ['notFound' => 'Esta categoria nao foi encontrada.'],
     'product' => [

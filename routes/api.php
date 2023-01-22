@@ -19,16 +19,16 @@ use App\Http\Controllers\ProductController;
 */
 
 Route::middleware(['api.response'])->get('isconnected', function () {
-    return response()->json(['success' => true, 'isconnectes' => true]);
+    return response()->json(['success' => true, 'isconnected' => true]);
 });
 
 Route::post('login', [LoginController::class, 'login'])
-    ->middleware('api.response')->name('login');
+    ->middleware(['api.response'])->name('login');
 
 /**
  * Routes for admin access
  */
-Route::middleware(['auth.admin', 'auth:sanctum', 'api.response'])
+Route::middleware(['auth.admin', 'auth:sanctum',  'api.response'])
     ->prefix('admin')
     ->group(function () {
         Route::get('isconnected', function () {
@@ -62,7 +62,7 @@ Route::middleware(['auth:sanctum', 'api.response'])
     ->group(function () {
 
         Route::get('isconnected', function () {
-            return response(['isconnectes' => true]);
+            return response(['isconnected' => true]);
         });
     });
 
