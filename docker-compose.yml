@@ -3,11 +3,11 @@ version: '3'
 services:
     laravel.test:
         build:
-            context: ./vendor/laravel/sail/runtimes/8.1
+            context: ./vendor/laravel/sail/runtimes/8.2
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
-        image: sail-8.1/app
+        image: sail-8.2/app
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
@@ -26,7 +26,7 @@ services:
             - mysql
             - mailhog
         mem_limit: 300m
-        cpu_percent: 8
+        cpu_percent: 10
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
@@ -48,7 +48,7 @@ services:
             retries: 3
             timeout: 5s
         mem_limit: 300m
-        cpu_percent: 6
+        cpu_percent: 10
     mailhog:
         image: 'mailhog/mailhog:latest'
         ports:
